@@ -1,0 +1,17 @@
+FROM ubuntu
+
+WORKDIR app
+
+RUN apt-get update
+RUN apt-get -y install nodejs
+RUN apt-get -y install npm
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+CMD ["node", "dist/main.js"]
+
+node dist/main.js
