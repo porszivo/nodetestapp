@@ -3,6 +3,12 @@ pipeline {
 	environment {
 		APP_NAME = "Node Test App"
 	}
+	options {
+		buildDiscarder logRotator(
+			daysToKeepStr: '15',
+			numToKeepStr: '2'
+		)
+	}
 	stages {
         stage('Cleanup Workspace') {
             steps {
@@ -12,12 +18,14 @@ pipeline {
                 """
             }
         }
-				stage('print hello world') {
-							steps {
-								sh """
-								echo "Hello World"
-								"""
-							}
+				stage('Checkout Code') {
+					steps {
+						checkout([
+							$class: 'GitSCM',
+							branches: [[name: '*/*']],
+							userRemoteConfigs: [[url: 'https://github.com/porszivo/nodetestapp.git']]
+						])
+					}
 				}
 	}
 }
