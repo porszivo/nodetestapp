@@ -32,6 +32,7 @@ pipeline {
 				}
 				stage('Build the application') {
 					steps {
+						sh "npm install"
 						sh """
 							npm run build
 						"""
