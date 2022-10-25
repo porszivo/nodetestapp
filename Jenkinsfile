@@ -3,6 +3,9 @@ pipeline {
 	environment {
 		APP_NAME = "Node Test App"
 	}
+	tools {
+		nodejs "node"
+	}
 	options {
 		buildDiscarder logRotator(
 			daysToKeepStr: '15',
